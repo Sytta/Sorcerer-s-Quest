@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{54CFB4AC-4786-7765-2A7A-0668EE922195}") = "Tutoriel Unity 3", "Assembly-CSharp.csproj", "{F7159B4F-1425-A1EF-9948-B5163439423D}"
+EndProject
+Project("{54CFB4AC-4786-7765-2A7A-0668EE922195}") = "Tutoriel Unity 3", "Assembly-CSharp-Editor.csproj", "{EDD25328-69E4-0989-67D7-2A41181C9878}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F7159B4F-1425-A1EF-9948-B5163439423D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7159B4F-1425-A1EF-9948-B5163439423D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7159B4F-1425-A1EF-9948-B5163439423D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7159B4F-1425-A1EF-9948-B5163439423D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDD25328-69E4-0989-67D7-2A41181C9878}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDD25328-69E4-0989-67D7-2A41181C9878}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDD25328-69E4-0989-67D7-2A41181C9878}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDD25328-69E4-0989-67D7-2A41181C9878}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
