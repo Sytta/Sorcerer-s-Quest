@@ -7,8 +7,10 @@ public class PlayerController : MonoBehaviour
 {
     public float nouvellePosition;
 	public int   vies = 3;
+	public int protection = 0;
 	public Text  texteVies; // nouveau type de UI, sur Unity 4.6 et plus
 	public Text  texteMort;
+	public Text texteProtection;
 
 	// à ajouter : le score (quand on frappe un coin)
 	public int   score = 0;
@@ -87,26 +89,45 @@ public class PlayerController : MonoBehaviour
 			texteScore.text = "Score : " + score;
         }
 
+		if (other.gameObject.tag == "ExtraLife")
+		{
+			Destroy(other.gameObject);
+			vies++;
+			texteVies.text = "Vies : " + vies;
+		}
+
+		if (other.gameObject.tag == "Protection")
+		{
+			Destroy(other.gameObject);
+			protection = 3;
+			texteProtection.text = "Protection : " + protection;
+		}
+
 		if (other.gameObject.tag == "Bullet")
 		{
-			// Si le joueur est touché, on décrémente sa vie
-			vies--;
+			if (protection == 0) {
+				// Si le joueur est touché, on décrémente sa vie
+				vies--;
 
-			// quand le joueur a été touché 3 fois
-			if (vies == 0) {
-				// Contradiction avec le fait que le joueur meurt
-				//gameObject.transform.position = Vector3.zero;
-				//vies = 3
+				// quand le joueur a été touché 3 fois
+				if (vies == 0) {
+					// Contradiction avec le fait que le joueur meurt
+					//gameObject.transform.position = Vector3.zero;
+					//vies = 3
 
-				// reset du score et de la vie
-				score = 0;
+					// reset du score et de la vie
+					score = 0;
 
-				// Animation de mort
-				animator.SetTrigger ("Die");
+					// Animation de mort
+					animator.SetTrigger ("Die");
 
-				// Affichage du game over!
-				texteMort.enabled = true;
-				Invoke ("CacherText", 3.0f);
+					// Affichage du game over!
+					texteMort.enabled = true;
+					Invoke ("CacherText", 3.0f);
+				}
+			} else {
+				protection--;
+				texteProtection.text = "Protection : " + protection;
 			}
 
 			texteVies.text = "Vies : " + vies;

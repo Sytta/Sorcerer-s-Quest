@@ -37,12 +37,9 @@ public class Cannon : MonoBehaviour
             // Nous créons le projectile selon la position déterminée et l'orientons dans le même sens que le cannon.
             // transform.TransformPoint transformera les coordonées locales utilisées en coordonées du monde.
             // De cette façon, c'est lui qui prend en charge le scale fait dans l'éditeur. Ainsi, 1 unité en z en vaut 13 dans le monde avec le scale du cannon.
-            GameObject result = (GameObject)Instantiate(Bullet, transform.TransformPoint(position), transform.rotation);
+			GameObject result = (GameObject)Instantiate(Bullet, transform.TransformPoint(position) + new Vector3(1f, 0f, 1f), transform.rotation);
             // Nous denons une vitesse au projectile pour qu'il puisse se déplacer lorsqu'il apparaît.
             result.GetComponent<Rigidbody>().velocity = transform.right.normalized*BulletSpeed; // vitesse pointant vers les x positif
-
-			// Pour détruire le bullet après un certain temps
-			Destroy(result, delaiSpawn);
         }
     }
 }
