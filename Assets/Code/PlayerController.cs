@@ -28,7 +28,33 @@ public class PlayerController : MonoBehaviour
 	// Update is called once per frame (approx. 60 times per second)
     void Update()
     {
-
+		// Get current scene & change scene if necessary
+        int levelLoaded = SceneManager.GetActiveScene().buildIndex;
+        switch (levelLoaded)
+        {
+            case 0: // Level 1
+                if (score >= 10)
+                {
+                    Initiate.Fade(++levelLoaded, Color.black, 0.5f);
+                }
+                break;
+            case 1: // Level 2
+                if (score >= 15)
+                {
+                    Initiate.Fade(++levelLoaded, Color.black, 0.5f);
+                    score = 0;
+                    vies = 3;
+                }
+                break;
+            case 2: //Level 3 (for the moment it reloads the Level 1)
+                if (score >= 20)
+                {
+                    Initiate.Fade(0, Color.black, 0.5f);
+                    score = 0;
+                    vies = 3;
+                }
+                break;
+        }
     }
 
 	// Update at a lower rate
@@ -99,7 +125,7 @@ public class PlayerController : MonoBehaviour
 		if (other.gameObject.tag == "Protection")
 		{
 			Destroy(other.gameObject);
-			protection = 3;
+			protection += 3;
 			texteProtection.text = "Protection : " + protection;
 		}
 
