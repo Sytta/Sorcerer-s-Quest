@@ -6,15 +6,33 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public float nouvellePosition;
+
+	// Vies
 	public int   vies = 3;
-	public int protection = 0;
 	public Text  texteVies; // nouveau type de UI, sur Unity 4.6 et plus
 	public Text  texteMort;
-	public Text texteProtection;
 
-	// à ajouter : le score (quand on frappe un coin)
+	// Score
 	public int   score = 0;
 	public Text  texteScore;
+
+	// Power-ups
+	public float powerUpTimeRemaining = 5.0f;
+	public Text  texteTimeRemaining; 
+
+	public bool  powerUpActivatedStopCanon = false;
+	public GameObject[] canons;
+
+	public bool  powerUpActivatedInvincible = false;
+
+	public bool  powerUpActivatedMoney = false;
+
+	// Item shop
+	public Text  texteItemShop; 
+	public bool  itemShopActivatedBoots = false;
+
+	public int protection = 0;
+	public Text texteProtection;
 
 	// Animator
 	public Animator animator;
@@ -22,7 +40,8 @@ public class PlayerController : MonoBehaviour
 	// Use this for initialization (valeurs de défaut de l'objet)
     void Start()
     {
-
+		// Trouve tous les GameObject ayant le tag "Wall"
+		canons = GameObject.FindGameObjectsWithTag ("Wall");
     }
 		
 	// Update is called once per frame (approx. 60 times per second)
@@ -78,12 +97,76 @@ public class PlayerController : MonoBehaviour
 		// Ainsi, on multiplie la valeur de la force entreeHorizontale.
 		// La physique effectue son travail pour bouger l'objet.
 		// y est l'axe pointant vers le haut
-		gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(entreHorizontal * 20f, 0f, entreVertical * 20f));
+		if (itemShopActivatedBoots) {
+			gameObject.GetComponent<Rigidbody> ().AddForce (new Vector3 (entreHorizontal * 60f, 0f, entreVertical * 60f));
+		} else {
+			gameObject.GetComponent<Rigidbody> ().AddForce (new Vector3 (entreHorizontal * 20f, 0f, entreVertical * 20f));
+		}
 
 		// Déterminer la vitesse d'animation
 		animator.SetFloat("Speed", Mathf.Clamp(gameObject.GetComponent<Rigidbody>().velocity.magnitude, 0.0f, 1.0f));
 
 		gameObject.transform.rotation = Quaternion.LookRotation (new Vector3 (entreHorizontal, 0, entreVertical));
+
+		// power ups are activated when player collide with power up object
+		if (powerUpActivatedStopCanon) {
+
+			texteTimeRemaining.enabled = true;
+
+			powerUpTimeRemaining -= Time.deltaTime;
+			texteTimeRemaining.text = "Freeze: " + Mathf.Round (powerUpTimeRemaining);
+
+			// Retour à la normale
+			if (powerUpTimeRemaining < 0) {
+				powerUpActivatedStopCanon = false;
+				powerUpTimeRemaining = 5.0f;
+				texteTimeRemaining.enabled = false;
+
+				// Réactive les canons
+				foreach (GameObject canon in canons) {
+					Cannon script = canon.GetComponent<Cannon> ();
+					script.StartCoroutine (script.StartFiring ());
+				}
+			}
+		}
+
+		if (powerUpActivatedInvincible) {
+
+			texteTimeRemaining.enabled = true;
+
+			powerUpTimeRemaining -= Time.deltaTime;
+			texteTimeRemaining.text = "Invincible: " + Mathf.Round (powerUpTimeRemaining);
+
+			// Retour à la normale
+			if (powerUpTimeRemaining < 0) {
+				powerUpActivatedInvincible = false;
+				powerUpTimeRemaining = 5.0f;
+				texteTimeRemaining.enabled = false;
+			}
+		}
+
+		if (powerUpActivatedMoney) {
+
+			texteTimeRemaining.enabled = true;
+
+			powerUpTimeRemaining -= Time.deltaTime;
+			texteTimeRemaining.text = "Money: " + Mathf.Round (powerUpTimeRemaining);
+
+			// Retour à la normale
+			if (powerUpTimeRemaining < 0) {
+				powerUpActivatedMoney = false;
+				powerUpTimeRemaining = 5.0f;
+				texteTimeRemaining.enabled = false;
+			}
+		}
+
+		if (itemShopActivatedBoots) {
+
+			texteItemShop.enabled = true;
+
+			// TO-DO Could be an image of boots
+			texteItemShop.text = "Bottes activés";
+		}
 
     }
 
@@ -110,7 +193,11 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject, 1.0f);
 
 			// Incrémentation du score
-			score++;
+			if (powerUpActivatedMoney) {
+				score = score + 2;
+			} else {
+				score++;
+			}
 
 			texteScore.text = "Score : " + score;
         }
@@ -129,7 +216,7 @@ public class PlayerController : MonoBehaviour
 			texteProtection.text = "Protection : " + protection;
 		}
 
-		if (other.gameObject.tag == "Bullet")
+		if (other.gameObject.tag == "Bullet" && !powerUpActivatedInvincible)
 		{
 			if (protection == 0) {
 				// Si le joueur est touché, on décrémente sa vie
@@ -158,6 +245,43 @@ public class PlayerController : MonoBehaviour
 
 			texteVies.text = "Vies : " + vies;
 			texteScore.text = "Score : " + score;
+		}
+
+		// Power-up : StopCanon permet d'arrêter le tir des canons
+		if (other.gameObject.tag == "StopCanon") {
+			// Cache le power-up
+			other.GetComponent<MeshRenderer> ().enabled = false;
+
+			// Arrête les canons
+			foreach (GameObject canon in canons) {
+				canon.GetComponent<Cannon> ().StopAllCoroutines ();
+			}
+
+			powerUpActivatedStopCanon = true;
+		}
+
+		// Power-up : Invincible ignore les collision avec les chats
+		if (other.gameObject.tag == "Invincible") {
+			// Cache le power-up
+			other.GetComponent<MeshRenderer> ().enabled = false;
+
+			powerUpActivatedInvincible = true;
+		}
+
+		// Power-up : Money double les points obtenus avec un Coin
+		if (other.gameObject.tag == "Money") {
+			// Cache le power-up
+			other.GetComponent<MeshRenderer> ().enabled = false;
+
+			powerUpActivatedMoney = true;
+		}
+
+		// Item shop : Boots fait aller le personnage plus rapidement
+		if (other.gameObject.tag == "Boots") {
+			// Cache le power-up
+			other.GetComponent<MeshRenderer> ().enabled = false;
+
+			itemShopActivatedBoots = true;
 		}
     }
 

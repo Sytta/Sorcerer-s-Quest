@@ -20,7 +20,7 @@ public class Cannon : MonoBehaviour
     }
 
     //Logique de tir.
-    private IEnumerator StartFiring()
+    public IEnumerator StartFiring()
     {
         while (true)
         {
