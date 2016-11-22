@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour {
 			//Make a new projectile.
 			GameObject projectilePlayer = Instantiate(projectile, transform.position, transform.rotation) as GameObject;
 			//Set the projectile position to our position
-			projectilePlayer.transform.position = transform.position + new Vector3(0.25f, 0f, 0.25f);
+			projectilePlayer.transform.position = transform.position + transform.forward*0.25f;
 
 			projectilePlayer.transform.parent=projectileContainer.transform;
 
