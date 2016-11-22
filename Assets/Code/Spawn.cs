@@ -23,6 +23,12 @@ public class Spawn : MonoBehaviour {
 	// Shop (pour l'instant c'est un power-up qui n'a pas de durée)
 	public Object boots;
 
+	// Power-up : Extra life
+	public Object extraLife;
+
+	// Shop (protection)
+	public Object protection;
+
 	// Use this for initialization
 	void Start () {
 		// Une routine qui est exécuté en parallèle sans bloquer le déroulement du jeu
@@ -31,6 +37,8 @@ public class Spawn : MonoBehaviour {
 		StartCoroutine (SpawnPowerUpInvincible ());
 		StartCoroutine (SpawnPowerUpMoney ());
 		StartCoroutine (SpawnPowerUpBoots ());
+		StartCoroutine (SpawnLife ());
+		StartCoroutine (SpawnProtection ());
 	}
 	
 	// Update is called once per frame
@@ -156,6 +164,34 @@ public class Spawn : MonoBehaviour {
 			GameObject result = (GameObject)Instantiate(boots, position, gameObject.transform.rotation);
 
 			// Pour détruire le power-up après un certain temps
+			Destroy(result, delaiSpawn_power);
+		}
+	}
+
+	public IEnumerator SpawnLife() {
+		while (true) {
+			yield return new WaitForSeconds(Random.Range(minDelai, maxDelai));
+			// position minimale pour le spawn
+			Vector3 min = gameObject.transform.position - (gameObject.transform.localScale / 2.0f);
+
+			// position maximale pour le spawn
+			Vector3 max = gameObject.transform.position + (gameObject.transform.localScale / 2.0f);
+			Vector3 position = new Vector3 (Random.Range (min.x, max.x), gameObject.transform.position.y, Random.Range (min.z, max.z));
+			GameObject result = (GameObject)Instantiate (extraLife, position, gameObject.transform.rotation);
+			Destroy(result, delaiSpawn_power);
+		}
+	}
+
+	public IEnumerator SpawnProtection() {
+		while (true) {
+			yield return new WaitForSeconds(Random.Range(minDelai, maxDelai));
+			// position minimale pour le spawn
+			Vector3 min = gameObject.transform.position - (gameObject.transform.localScale / 2.0f);
+
+			// position maximale pour le spawn
+			Vector3 max = gameObject.transform.position + (gameObject.transform.localScale / 2.0f);
+			Vector3 position = new Vector3 (Random.Range (min.x, max.x), gameObject.transform.position.y, Random.Range (min.z, max.z));
+			GameObject result = (GameObject)Instantiate (protection, position, gameObject.transform.rotation);
 			Destroy(result, delaiSpawn_power);
 		}
 	}
