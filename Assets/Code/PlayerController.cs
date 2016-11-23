@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
 	// Score
 	public int   score = 0;
 	public Text  texteScore;
+    public AudioSource coinGagne;
 
 	// Power-ups
 	public float powerUpTimeRemaining = 5.0f;
@@ -185,6 +186,8 @@ public class PlayerController : MonoBehaviour
         {
 			// Joue le système de particules
 			other.GetComponentInChildren<ParticleSystem> ().Play ();
+
+            coinGagne.Play();
 
 			// Cache le cube
 			other.GetComponent<MeshRenderer> ().enabled = false;
