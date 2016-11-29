@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
 	public int   score = 0;
 	public Text  texteScore;
     public AudioSource coinGagne;
+	public AudioClip catCollision;
 	public CustomProgressBar progressBar;
 
 	// Power-ups
@@ -283,6 +284,15 @@ public class PlayerController : MonoBehaviour
 			if (protection == 0) {
 				// Si le joueur est touché, on décrémente sa vie
 				vies--;
+
+                // Joue le système de particules
+                GetComponentInChildren<ParticleSystem> ().Play ();
+
+                // Joue le son
+				AudioSource.PlayClipAtPoint(catCollision, transform.position);
+
+                // Détruit l'objet
+                Destroy(other.gameObject);
 
 				// quand le joueur a été touché 3 fois
 				if (vies == 0) {
