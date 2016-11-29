@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UIAddons;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,10 +17,16 @@ public class PlayerController : MonoBehaviour
 	public int   score = 0;
 	public Text  texteScore;
     public AudioSource coinGagne;
+	public CustomProgressBar progressBar;
 
 	// Power-ups
 	public float powerUpTimeRemaining = 5.0f;
 	public Text  texteTimeRemaining; 
+
+	// Texte power-up activé (blinking text)
+	public BlinkEffect textePowerUp;
+	public bool  textePowerUpActivated = false;
+	public float textePowerUpTimeRemaining = 2.0f;
 
 	public bool  powerUpActivatedStopCanon = false;
 	public GameObject[] canons;
@@ -43,6 +50,25 @@ public class PlayerController : MonoBehaviour
     {
 		// Trouve tous les GameObject ayant le tag "Wall"
 		canons = GameObject.FindGameObjectsWithTag ("Wall");
+
+		if (Application.loadedLevelName == "Scene")
+		{
+			progressBar.slider.maxValue = 10;
+			progressBar.slider.minValue = 0;
+			progressBar.slider.value = 0;
+		}
+		else if (Application.loadedLevelName == "Scene_LV2")
+		{
+			progressBar.slider.maxValue = 15;
+			progressBar.slider.minValue = 0;
+			progressBar.slider.value = 0;
+		}
+		else if (Application.loadedLevelName == "Scene_LV3")
+		{
+			progressBar.slider.maxValue = 20;
+			progressBar.slider.minValue = 0;
+			progressBar.slider.value = 0;
+		}
     }
 		
 	// Update is called once per frame (approx. 60 times per second)
@@ -169,6 +195,28 @@ public class PlayerController : MonoBehaviour
 			texteItemShop.text = "Bottes activés";
 		}
 
+		// Quand on active un power-up, un texte blink sur l'écran pendant 2 secondes
+		if (textePowerUpActivated) {
+			
+			if (textePowerUpTimeRemaining == 2.0f) {
+				textePowerUp.enabled = true;
+				textePowerUp.GetComponent<Text> ().enabled = true;
+				textePowerUp.GetComponent<Shadow> ().enabled = true;
+				textePowerUp.GetComponent<BlinkEffect> ().enabled = true;
+			}
+
+			textePowerUpTimeRemaining -= Time.deltaTime;
+
+			if (textePowerUpTimeRemaining < 0) {
+				textePowerUp.enabled = false;
+				textePowerUp.GetComponent<Text> ().enabled = false;
+				textePowerUp.GetComponent<Shadow> ().enabled = false;
+				textePowerUp.GetComponent<BlinkEffect> ().enabled = false;
+				textePowerUpTimeRemaining = 2.0f;
+				textePowerUpActivated = false;
+			}
+		}
+
     }
 
     public void OnCollisionEnter(Collision collision)
@@ -184,6 +232,9 @@ public class PlayerController : MonoBehaviour
 		// Réagit aux collisions non physique
         if (other.gameObject.tag == "Coin")
         {
+			// Désactiver les multiples points
+			other.GetComponent<BoxCollider>().enabled = false;
+
 			// Joue le système de particules
 			other.GetComponentInChildren<ParticleSystem> ().Play ();
 
@@ -198,8 +249,10 @@ public class PlayerController : MonoBehaviour
 			// Incrémentation du score
 			if (powerUpActivatedMoney) {
 				score = score + 2;
+				progressBar.slider.value = progressBar.slider.value + 2;
 			} else {
 				score++;
+				progressBar.slider.value++;
 			}
 
 			texteScore.text = "Score : " + score;
@@ -210,6 +263,9 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 			vies++;
 			texteVies.text = "Vies : " + vies;
+
+			textePowerUp.GetComponent<Text>().text = "1 UP!";
+			textePowerUpActivated = true;
 		}
 
 		if (other.gameObject.tag == "Protection")
@@ -217,6 +273,9 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 			protection += 3;
 			texteProtection.text = "Protection : " + protection;
+
+			textePowerUp.GetComponent<Text>().text = "Shield!";
+			textePowerUpActivated = true;
 		}
 
 		if (other.gameObject.tag == "Bullet" && !powerUpActivatedInvincible)
@@ -261,6 +320,9 @@ public class PlayerController : MonoBehaviour
 			}
 
 			powerUpActivatedStopCanon = true;
+
+			textePowerUp.GetComponent<Text>().text = "Freeze!";
+			textePowerUpActivated = true;
 		}
 
 		// Power-up : Invincible ignore les collision avec les chats
@@ -269,6 +331,9 @@ public class PlayerController : MonoBehaviour
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
 			powerUpActivatedInvincible = true;
+
+			textePowerUp.GetComponent<Text>().text = "God mode!";
+			textePowerUpActivated = true;
 		}
 
 		// Power-up : Money double les points obtenus avec un Coin
@@ -277,6 +342,9 @@ public class PlayerController : MonoBehaviour
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
 			powerUpActivatedMoney = true;
+
+			textePowerUp.GetComponent<Text>().text = "Bling bling $$$";
+			textePowerUpActivated = true;
 		}
 
 		// Item shop : Boots fait aller le personnage plus rapidement
@@ -285,6 +353,9 @@ public class PlayerController : MonoBehaviour
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
 			itemShopActivatedBoots = true;
+
+			textePowerUp.GetComponent<Text>().text = "Run Forrest Run!";
+			textePowerUpActivated = true;
 		}
     }
 
