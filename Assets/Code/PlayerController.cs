@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour
 
 	// Power-ups
 	public float powerUpTimeRemaining = 5.0f;
-	public Text  texteTimeRemaining; 
+	public Text  texteTimeRemaining;
 
 	// Texte power-up activé (blinking text)
 	public BlinkEffect textePowerUp;
@@ -32,6 +32,8 @@ public class PlayerController : MonoBehaviour
 	public bool  powerUpActivatedStopCanon = false;
 	public GameObject[] canons;
 
+    public Projectile gun;
+
 	public bool  powerUpActivatedInvincible = false;
 
 	public bool  powerUpActivatedMoney = false;
@@ -39,8 +41,9 @@ public class PlayerController : MonoBehaviour
 	// Item shop
 	public Text  texteItemShop; 
 	public bool  itemShopActivatedBoots = false;
+    public ShopController shopController;
 
-	public int protection = 0;
+    public int protection = 0;
 	public Text texteProtection;
 
 	// Animator
@@ -51,56 +54,75 @@ public class PlayerController : MonoBehaviour
     {
 		// Trouve tous les GameObject ayant le tag "Wall"
 		canons = GameObject.FindGameObjectsWithTag ("Wall");
+        //Gun
+        gun = FindObjectOfType<Projectile>();
 
-		if (Application.loadedLevelName == "Scene")
-		{
-			progressBar.slider.maxValue = 10;
-			progressBar.slider.minValue = 0;
-			progressBar.slider.value = 0;
-		}
-		else if (Application.loadedLevelName == "Scene_LV2")
-		{
-			progressBar.slider.maxValue = 15;
-			progressBar.slider.minValue = 0;
-			progressBar.slider.value = 0;
-		}
-		else if (Application.loadedLevelName == "Scene_LV3")
-		{
-			progressBar.slider.maxValue = 20;
-			progressBar.slider.minValue = 0;
-			progressBar.slider.value = 0;
-		}
+        //Cacher le magasins de Power-ups
+        shopController.CloseShop();
+
+        //Appliquer les power-ups que le joueur a achete
+        if (GlobalControl.Instance.nbProtectionSelected > 0)
+        {
+            protection += GlobalControl.Instance.nbProtectionSelected * 3;
+            texteProtection.text = "Protection : " + protection;
+        }
+        if (GlobalControl.Instance.bootsSelected)
+        {
+            itemShopActivatedBoots = true;
+        }
+        if (GlobalControl.Instance.gunSelected)
+        {
+            gun.gunActivated = true;
+        }
+
+        GlobalControl.Instance.Reset();
+
+        if (SceneManager.GetActiveScene().name == "Scene")
+        {
+            progressBar.slider.maxValue = 10;
+            progressBar.slider.minValue = 0;
+            progressBar.slider.value = 0;
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene_LV2")
+        {
+            progressBar.slider.maxValue = 15;
+            progressBar.slider.minValue = 0;
+            progressBar.slider.value = 0;
+        }
+        else if (SceneManager.GetActiveScene().name == "Scene_LV3")
+        {
+            progressBar.slider.maxValue = 20;
+            progressBar.slider.minValue = 0;
+            progressBar.slider.value = 0;
+        }
     }
-		
-	// Update is called once per frame (approx. 60 times per second)
+
+    public void NextLevel()
+    {
+        int levelLoaded = SceneManager.GetActiveScene().buildIndex;
+        
+        //Revenir au menu
+        if (SceneManager.GetActiveScene().name == "Scene_LV3")
+            Initiate.Fade(0, Color.black, 0.5f);
+        else
+            Initiate.Fade(levelLoaded + 1, Color.black, 0.5f);
+    }
+
+    // Update is called once per frame (approx. 60 times per second)
     void Update()
     {
-		// Get current scene & change scene if necessary
-        int levelLoaded = SceneManager.GetActiveScene().buildIndex;
-        switch (levelLoaded)
+        //Verifie si le ItemShop a besoin d'etre active
+        if (SceneManager.GetActiveScene().name == "Scene" && score >= 10)
         {
-            case 0: // Level 1
-                if (score >= 10)
-                {
-                    Initiate.Fade(++levelLoaded, Color.black, 0.5f);
-                }
-                break;
-            case 1: // Level 2
-                if (score >= 15)
-                {
-                    Initiate.Fade(++levelLoaded, Color.black, 0.5f);
-                    score = 0;
-                    vies = 3;
-                }
-                break;
-            case 2: //Level 3 (for the moment it reloads the Level 1)
-                if (score >= 20)
-                {
-                    Initiate.Fade(0, Color.black, 0.5f);
-                    score = 0;
-                    vies = 3;
-                }
-                break;
+            shopController.OpenShop();
+        }
+        if (SceneManager.GetActiveScene().name == "Scene_LV2" && score >= 15)
+        {
+            shopController.OpenShop();
+        }
+        if (SceneManager.GetActiveScene().name == "Scene_LV3" && score >= 20)
+        {
+            NextLevel(); //Revenir au menu principal
         }
     }
 

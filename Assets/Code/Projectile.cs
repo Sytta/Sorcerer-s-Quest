@@ -4,6 +4,7 @@ using System.Collections;
 public class Projectile : MonoBehaviour {
 	public Object projectile;
 	private GameObject projectileContainer;
+    public bool gunActivated = false;
 
 	// Use this for initialization
 	void Start () {
@@ -12,7 +13,7 @@ public class Projectile : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.Space) && projectile!=null)
+		if (Input.GetKeyDown(KeyCode.Space) && projectile!=null && gunActivated)
 		{
 			//Make a new projectile.
 			GameObject projectilePlayer = Instantiate(projectile, transform.position, transform.rotation) as GameObject;

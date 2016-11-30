@@ -88,6 +88,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="UIAddons">
+      <HintPath>Assets\UIAddons\Plugins\UIAddons\UIAddons.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Challenge_Unity.CSharp.csproj">
@@ -117,8 +120,10 @@
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherSnow_Editor.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherSun_Editor.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherThunderstorm_Editor.cs" />
+    <Compile Include="Assets\UIAddons\Editor\EditorTools.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
     <None Include="Assets\Kitten\Shaders\Alpha-Diffuse.shader" />
     <None Include="Assets\Kitten\Shaders\Normal-Diffuse.shader" />
     <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
@@ -198,8 +203,11 @@
     <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
     <None Include="Assets\NatureStarterKit2\info.txt" />
+    <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
     <None Include="Assets\TimeOfDay&amp;WeatherSystem\Documents\ContactInformation.txt" />
     <None Include="Assets\TimeOfDay&amp;WeatherSystem\Documents\VersionInformation.txt" />
+    <None Include="Assets\UIAddons\Shaders\UIAddonsGrayScaleFont.shader" />
+    <None Include="Assets\UIAddons\Shaders\UIAddonsGrayscale.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
