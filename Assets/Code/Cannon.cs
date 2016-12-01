@@ -34,10 +34,11 @@ public class Cannon : MonoBehaviour
             float maximum =  Random.Range(0.0f, 0.5f);
 
             Vector3 position = new Vector3(0, 0, Random.Range(minimum, maximum));
+
             // Nous créons le projectile selon la position déterminée et l'orientons dans le même sens que le cannon.
             // transform.TransformPoint transformera les coordonées locales utilisées en coordonées du monde.
             // De cette façon, c'est lui qui prend en charge le scale fait dans l'éditeur. Ainsi, 1 unité en z en vaut 13 dans le monde avec le scale du cannon.
-			GameObject result = (GameObject)Instantiate(Bullet, transform.TransformPoint(position) + new Vector3(1f, 0f, 1f), transform.rotation);
+			GameObject result = (GameObject)Instantiate(Bullet, transform.TransformPoint(position) + transform.rotation*new Vector3(1f, 0f, 1f), transform.rotation);
             // Nous denons une vitesse au projectile pour qu'il puisse se déplacer lorsqu'il apparaît.
             result.GetComponent<Rigidbody>().velocity = transform.right.normalized*BulletSpeed; // vitesse pointant vers les x positif
         }
