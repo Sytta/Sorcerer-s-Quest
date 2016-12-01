@@ -57,6 +57,11 @@
      <Compile Include="Assets\Code\ShopController.cs" />
      <Compile Include="Assets\Code\Spawn.cs" />
      <Compile Include="Assets\Code\UIManagerScript.cs" />
+     <Compile Include="Assets\HUD&amp;GUI MEDIEVAL ART BUNDLE\Demo\Scripts\ButtonDisabler.cs" />
+     <Compile Include="Assets\HUD&amp;GUI MEDIEVAL ART BUNDLE\Demo\Scripts\ButtonImageOnClick.cs" />
+     <Compile Include="Assets\HUD&amp;GUI MEDIEVAL ART BUNDLE\Demo\Scripts\CastAnimationButton.cs" />
+     <Compile Include="Assets\HUD&amp;GUI MEDIEVAL ART BUNDLE\Demo\Scripts\FillBySlider.cs" />
+     <Compile Include="Assets\HUD&amp;GUI MEDIEVAL ART BUNDLE\Demo\Scripts\GathererLayout.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Antialiasing.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Bloom.cs" />
      <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\BloomAndFlares.cs" />
