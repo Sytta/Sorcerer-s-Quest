@@ -21,25 +21,16 @@ public class Spawn : MonoBehaviour {
 	public Object money;      // donne 2x plus de points
 	public Object extraLife;  // donne une vie supplémentaire
 
-	// Shop (pour l'instant c'est un power-up qui n'a pas de durée)
-	public Object boots;
-
-	// Shop (protection)
-	public Object protection;
-
 	// Use this for initialization
 	void Start () {
 		// Une routine qui est exécuté en parallèle sans bloquer le déroulement du jeu
 		StartCoroutine (SpawnCoin ());
 
-		powerUps = new Object[6];
+		powerUps = new Object[4];
 		powerUps [0] = stopCanon;
 		powerUps [1] = invincible;
 		powerUps [2] = money;
-		// À enlever une fois que le shop item est complété
-		powerUps [3] = boots;
-		powerUps [4] = extraLife;
-		powerUps [5] = protection;
+		powerUps [3] = extraLife;
 		StartCoroutine (SpawnPowerUp ());
 	}
 	
@@ -91,7 +82,7 @@ public class Spawn : MonoBehaviour {
 			Vector3 position = new Vector3 (Random.Range(min.x, max.x), gameObject.transform.position.y, Random.Range(min.z, max.z));
 
 			// Instantiation du power-up aléatoire
-			GameObject result = (GameObject)Instantiate(powerUps[Random.Range(0,6)], position, gameObject.transform.rotation);
+			GameObject result = (GameObject)Instantiate(powerUps[Random.Range(0,4)], position, gameObject.transform.rotation);
 
 			// Pour détruire le power-up après un certain temps
 			Destroy(result, delaiSpawn_power);
