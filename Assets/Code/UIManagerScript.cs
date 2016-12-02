@@ -8,12 +8,14 @@ public class UIManagerScript : MonoBehaviour {
 	public AudioClip buttonPress;
 
 	public void StartGame() {
-		AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("start_btn").transform.position);
 		Application.LoadLevel("Scene");
 	}
 
 	public void QuitGame() {
-		AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("exit_btn").transform.position);
 		Application.Quit();
 	}
 
@@ -38,17 +40,20 @@ public class UIManagerScript : MonoBehaviour {
 	}
 
 	public void loadCredits() {
-		AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("credits_btn").transform.position);
 		Application.LoadLevel ("Credits");
 	}
 
 	public void loadMenu() {
-		AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("back_btn").transform.position);
 		Application.LoadLevel ("Menu");
 	}
 
 	public void loadHelp() {
-		AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("help_btn").transform.position);
 		Application.LoadLevel ("Help");
 	}
 }
