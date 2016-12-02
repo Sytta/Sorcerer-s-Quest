@@ -296,12 +296,16 @@ public class PlayerController : MonoBehaviour
 		if (other.gameObject.tag == "ExtraLife")
 		{
 			Destroy(other.gameObject);
-            if (vies < 3) //3 vies max
-                vies++;
+			if (vies < 3) { //3 vies max
+				vies++;
+				textePowerUp.GetComponent<Text> ().text = "1 UP!";
+			} else {
+				textePowerUp.GetComponent<Text> ().text = "MAX LIFE!";
+			}
+
 			texteVies.text = "Vies : " + vies;
             lifeSlider.SetValue((float)vies / 3);
 
-			textePowerUp.GetComponent<Text>().text = "1 UP!";
 			textePowerUpActivated = true;
 		}
 
@@ -368,7 +372,7 @@ public class PlayerController : MonoBehaviour
 
 			powerUpActivatedStopCanon = true;
 
-			textePowerUp.GetComponent<Text>().text = "Freeze!";
+			textePowerUp.GetComponent<Text>().text = "Freeze! Let it go ~";
 			textePowerUpActivated = true;
 		}
 
@@ -413,11 +417,3 @@ public class PlayerController : MonoBehaviour
 		SceneManager.LoadScene (0);
 	}
 }
-
-// challenge, jeu ou on esquive des objets
-// pour la fin de la session, ajouter des fonctionnalités au jeu
-// powerup (GODMODE) : penser au fait que le player peut être invincible
-// powerup (FREEZE - Let it go!) : ralentir le temps (balle ralentisse)
-// powerup (HEART) : gagne une vie (max. de 3)
-
-// Après un certain score, on peut faire plus difficile, genre plus de chat, plus rapide
