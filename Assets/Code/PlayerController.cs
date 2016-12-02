@@ -8,6 +8,9 @@ public class PlayerController : MonoBehaviour
 {
     public float nouvellePosition;
 
+	// Collision
+	public AudioClip catCollision;
+
 	// Vies
 	public int   vies = 3;
 	public Text  texteVies; // nouveau type de UI, sur Unity 4.6 et plus
@@ -17,13 +20,13 @@ public class PlayerController : MonoBehaviour
 	public int   score = 0;
 	public Text  texteScore;
     public AudioSource coinGagne;
-	public AudioClip catCollision;
 	public CustomProgressBar progressBar;
     public LifeSlider lifeSlider;
 
 	// Power-ups
 	public float powerUpTimeRemaining = 5.0f;
 	public Text  texteTimeRemaining;
+	public AudioClip powerUp;
 
 	// Texte power-up activé (blinking text)
 	public BlinkEffect textePowerUp;
@@ -295,6 +298,7 @@ public class PlayerController : MonoBehaviour
 
 		if (other.gameObject.tag == "ExtraLife")
 		{
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
 			Destroy(other.gameObject);
 			if (vies < 3) { //3 vies max
 				vies++;
@@ -311,6 +315,7 @@ public class PlayerController : MonoBehaviour
 
 		if (other.gameObject.tag == "Protection")
 		{
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
 			Destroy(other.gameObject);
 			protection += 3;
 			texteProtection.text = "Protection : " + protection;
@@ -362,6 +367,7 @@ public class PlayerController : MonoBehaviour
 
 		// Power-up : StopCanon permet d'arrêter le tir des canons
 		if (other.gameObject.tag == "StopCanon") {
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
 			// Cache le power-up
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
@@ -378,6 +384,7 @@ public class PlayerController : MonoBehaviour
 
 		// Power-up : Invincible ignore les collision avec les chats
 		if (other.gameObject.tag == "Invincible") {
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
 			// Cache le power-up
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
@@ -389,6 +396,7 @@ public class PlayerController : MonoBehaviour
 
 		// Power-up : Money double les points obtenus avec un Coin
 		if (other.gameObject.tag == "Money") {
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
 			// Cache le power-up
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
@@ -400,6 +408,7 @@ public class PlayerController : MonoBehaviour
 
 		// Item shop : Boots fait aller le personnage plus rapidement
 		if (other.gameObject.tag == "Boots") {
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
 			// Cache le power-up
 			other.GetComponent<MeshRenderer> ().enabled = false;
 
