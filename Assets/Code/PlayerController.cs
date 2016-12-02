@@ -131,8 +131,10 @@ public class PlayerController : MonoBehaviour
             if (messagePanel.openPanel)
                 messagePanel.Open();
             else
+            {
                 messagePanel.Close();
-            NextLevel(); //Revenir au menu principal
+                NextLevel(); //Revenir au menu principal
+            }
         }
     }
 
