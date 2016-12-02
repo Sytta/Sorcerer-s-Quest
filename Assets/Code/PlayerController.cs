@@ -44,6 +44,9 @@ public class PlayerController : MonoBehaviour
 	public bool  itemShopActivatedBoots = false;
     public ShopController shopController;
 
+    //Message panel
+    public MessagePanel messagePanel;
+
     public int protection = 0;
 	public Text texteProtection;
 
@@ -58,8 +61,10 @@ public class PlayerController : MonoBehaviour
         //Gun
         gun = FindObjectOfType<Projectile>();
 
-        //Cacher le magasins de Power-ups
+        //Cacher le magasins de Power-ups et le panel de message
         shopController.CloseShop();
+        messagePanel.Close();
+        messagePanel.openPanel = true;
 
         //Appliquer les power-ups que le joueur a achete
         if (GlobalControl.Instance.nbProtectionSelected > 0)
@@ -112,17 +117,21 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame (approx. 60 times per second)
     void Update()
     {
-        //Verifie si le ItemShop a besoin d'etre active
-        if (SceneManager.GetActiveScene().name == "Scene" && score >= 10)
+        //Verifie si le ItemShop et le panel de message ont besoin d'etre active
+        if ((SceneManager.GetActiveScene().name == "Scene" && score >= 10) || (SceneManager.GetActiveScene().name == "Scene_LV2" && score >= 15))
         {
+            if (messagePanel.openPanel)
+                messagePanel.Open();
+            else
+                messagePanel.Close();
             shopController.OpenShop();
         }
-        if (SceneManager.GetActiveScene().name == "Scene_LV2" && score >= 15)
+        else if (SceneManager.GetActiveScene().name == "Scene_LV3" && score >= 20)
         {
-            shopController.OpenShop();
-        }
-        if (SceneManager.GetActiveScene().name == "Scene_LV3" && score >= 20)
-        {
+            if (messagePanel.openPanel)
+                messagePanel.Open();
+            else
+                messagePanel.Close();
             NextLevel(); //Revenir au menu principal
         }
     }
