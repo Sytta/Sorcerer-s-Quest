@@ -32,4 +32,8 @@ public class UIManagerScript : MonoBehaviour {
 	public void ChangeVolume() {
 		AudioListener.volume = GameObject.Find ("Volume Slider").GetComponent <Slider> ().value;;
 	}
+
+	public void loadCredits() {
+		Application.LoadLevel ("Credits");
+	}
 }
