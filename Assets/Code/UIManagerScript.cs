@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class UIManagerScript : MonoBehaviour {
+	bool volumeEnabled = false;
+	public Slider sliderVolume;
 
 	public void StartGame() {
 		Application.LoadLevel("Scene");
@@ -10,6 +12,21 @@ public class UIManagerScript : MonoBehaviour {
 
 	public void QuitGame() {
 		Application.Quit();
+	}
+
+	public void enableDisableVolumeSlider() {
+		if (volumeEnabled == false) {
+			GameObject.Find ("Volume Slider").GetComponent <Slider> ().enabled = true;
+			GameObject.Find ("Volume Slider").SetActive (true);
+			//GameObject.Find ("Volume Slider").GetComponent<Slider> ().
+			volumeEnabled = true;
+		} 
+		else {
+			GameObject.Find ("Volume Slider").GetComponent <Slider> ().enabled = false;
+			GameObject.Find ("Volume Slider").SetActive(false);
+			//GameObject.Find ("Volume Slider").GetComponent <Slider> ().Rebuild();
+			volumeEnabled = false;
+		}
 	}
 
 	public void ChangeVolume() {

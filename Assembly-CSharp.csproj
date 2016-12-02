@@ -52,6 +52,7 @@
      <Compile Include="Assets\Code\Initiate.cs" />
      <Compile Include="Assets\Code\ItemButton.cs" />
      <Compile Include="Assets\Code\LevelChange.cs" />
+     <Compile Include="Assets\Code\LifeSlider.cs" />
      <Compile Include="Assets\Code\PlayerController.cs" />
      <Compile Include="Assets\Code\Projectile.cs" />
      <Compile Include="Assets\Code\ShopController.cs" />
@@ -147,7 +148,6 @@
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\frag_ao.cginc" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ToonShading\Shaders\ToonBasicOutline.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_DepthOfField\DepthOfField34.shader" />
-     <None Include="Assets\Textures and Sprites\SF UI\Background\LICENSE.txt" />
      <None Include="Assets\TimeOfDay&amp;WeatherSystem\Documents\ContactInformation.txt" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\_BloomAndFlares\MobileBlur.shader" />
      <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Shaders\SSAOShader.shader" />
