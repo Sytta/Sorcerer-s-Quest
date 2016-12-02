@@ -7,17 +7,14 @@ public class ItemButton : MonoBehaviour
 
     public PlayerController player;
 
-    public Text nameText;
-    public Text description;
-    public Text costText;
     public int cost;
 
-    //private AudioSource source;
+    public AudioSource cashSpent;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start ()
     {
-        //source = GetComponent<AUdioSource>();
+        cashSpent.playOnAwake = false;
 	}
 
     public void OnClick()
@@ -26,16 +23,17 @@ public class ItemButton : MonoBehaviour
         {
             player.score -= cost;
             player.texteScore.text = "Score : " + player.score;
+            cashSpent.Play();
 
-            if (name == "Boots")
+            if (name == "Buy Boots Button")
             {
                 GlobalControl.Instance.bootsSelected = true;
             }
-            else if (name == "Gun")
+            else if (name == "Buy Gun Button")
             {
                 GlobalControl.Instance.gunSelected = true;
             }
-            else if (name == "Protection")
+            else if (name == "Buy Shield Button")
             {
                 GlobalControl.Instance.nbProtectionSelected++;
             }

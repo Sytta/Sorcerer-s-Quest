@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource coinGagne;
 	public AudioClip catCollision;
 	public CustomProgressBar progressBar;
+    public LifeSlider lifeSlider;
 
 	// Power-ups
 	public float powerUpTimeRemaining = 5.0f;
@@ -278,14 +279,16 @@ public class PlayerController : MonoBehaviour
 				progressBar.slider.value++;
 			}
 
-			texteScore.text = "Score : " + score;
+			texteScore.text = "Coins : " + score;
         }
 
 		if (other.gameObject.tag == "ExtraLife")
 		{
 			Destroy(other.gameObject);
-			vies++;
+            if (vies < 3) //3 vies max
+                vies++;
 			texteVies.text = "Vies : " + vies;
+            lifeSlider.SetValue((float)vies / 3);
 
 			textePowerUp.GetComponent<Text>().text = "1 UP!";
 			textePowerUpActivated = true;
@@ -306,6 +309,7 @@ public class PlayerController : MonoBehaviour
 			if (protection == 0) {
 				// Si le joueur est touché, on décrémente sa vie
 				vies--;
+                lifeSlider.SetValue((float)vies/3);
 
                 // Joue le système de particules
                 GetComponentInChildren<ParticleSystem> ().Play ();
@@ -338,7 +342,7 @@ public class PlayerController : MonoBehaviour
 			}
 
 			texteVies.text = "Vies : " + vies;
-			texteScore.text = "Score : " + score;
+			texteScore.text = "Coins : " + score;
 		}
 
 		// Power-up : StopCanon permet d'arrêter le tir des canons
