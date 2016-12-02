@@ -36,4 +36,12 @@ public class UIManagerScript : MonoBehaviour {
 	public void loadCredits() {
 		Application.LoadLevel ("Credits");
 	}
+
+	public void loadMenu() {
+		Application.LoadLevel ("Menu");
+	}
+
+	public void loadHelp() {
+		Application.LoadLevel ("Help");
+	}
 }
