@@ -4,6 +4,7 @@ using System.Collections;
 public class DestroyProjectile : MonoBehaviour {
 	bool isDestroyed = false;
 	public AudioClip catCollision;
+	public GameObject bloodSplatter;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +30,8 @@ public class DestroyProjectile : MonoBehaviour {
 		if (other.gameObject.tag == "Bullet") {
 			if (!isDestroyed) {
 				isDestroyed = true;
+				GameObject blood = (GameObject)Instantiate (bloodSplatter, other.transform.position, other.transform.rotation);
+				Destroy (blood, 0.5f);
 				AudioSource.PlayClipAtPoint(catCollision, transform.position);
 				Destroy (other.gameObject);
 				Destroy (gameObject);

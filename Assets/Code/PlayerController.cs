@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
 	// Collision
 	public AudioClip catCollision;
+	public GameObject bloodSplatter;
 
 	// Vies
 	public int   vies = 3;
@@ -332,7 +333,9 @@ public class PlayerController : MonoBehaviour
                 lifeSlider.SetValue((float)vies/3);
 
                 // Joue le système de particules
-                GetComponentInChildren<ParticleSystem> ().Play ();
+                //GetComponentInChildren<ParticleSystem> ().Play ();
+				GameObject blood = (GameObject)Instantiate (bloodSplatter, transform.position, transform.rotation);
+				Destroy (blood, 0.5f);
 
                 // Joue le son
 				AudioSource.PlayClipAtPoint(catCollision, transform.position);
