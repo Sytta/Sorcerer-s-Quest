@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
 
         //Cacher le magasins de Power-ups et le panel de message
         shopController.CloseShop();
+        shopController.openShop = true;
         messagePanel.Close();
         messagePanel.openPanel = true;
 
@@ -109,13 +110,9 @@ public class PlayerController : MonoBehaviour
 
     public void NextLevel()
     {
+        shopController.CloseShop();
         int levelLoaded = SceneManager.GetActiveScene().buildIndex;
-        
-        //Revenir au menu
-        if (SceneManager.GetActiveScene().name == "Scene_LV3")
-            Initiate.Fade(0, Color.black, 0.5f);
-        else
-            Initiate.Fade(levelLoaded + 1, Color.black, 0.5f);
+        Initiate.Fade(levelLoaded + 1, Color.black, 0.5f);
     }
 
     // Update is called once per frame (approx. 60 times per second)
@@ -124,14 +121,24 @@ public class PlayerController : MonoBehaviour
         //Verifie si le ItemShop et le panel de message ont besoin d'etre active
         if ((SceneManager.GetActiveScene().name == "Scene" && score >= 10) || (SceneManager.GetActiveScene().name == "Scene_LV2" && score >= 15))
         {
+            //Cacher les textes pour les powerups
+            ClearTexts();
+
             if (messagePanel.openPanel)
                 messagePanel.Open();
             else
                 messagePanel.Close();
-            shopController.OpenShop();
+
+            if (shopController.openShop)
+                shopController.OpenShop();
+            else
+                shopController.CloseShop();
         }
         else if (SceneManager.GetActiveScene().name == "Scene_LV3" && score >= 20)
         {
+            //Cacher les textes pour les powerups
+            ClearTexts();
+
             if (messagePanel.openPanel)
                 messagePanel.Open();
             else
@@ -261,6 +268,11 @@ public class PlayerController : MonoBehaviour
     public void OnCollisionEnter(Collision collision)
     {
 
+    }
+
+    private void ClearTexts() {
+        textePowerUp.GetComponent<Text>().text = "";
+        texteTimeRemaining.text = "";
     }
 
     public void OnTriggerEnter(Collider other)

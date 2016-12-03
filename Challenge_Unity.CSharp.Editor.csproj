@@ -113,6 +113,14 @@
     <Compile Include="Assets\NatureStarterKit2\Editor\ImageEffects\SunShaftsEditor.cs" />
     <Compile Include="Assets\NatureStarterKit2\Editor\ImageEffects\TonemappingEditor.cs" />
     <Compile Include="Assets\NatureStarterKit2\Editor\ImageEffects\VignetteAndChromaticAberrationEditor.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\AudioSourceProEditor.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SMPAutorun.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SMPMenuItems.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SMProHierarchyIcon.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SoundFXManagerEditor.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SoundManagerEditor.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SoundManagerEditorTools.cs" />
+    <Compile Include="Assets\SoundManagerPro\Editor\SoundPocketEditor.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\Editor\ToD_Editor.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherCloudy_Editor.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\Editor\WeatherController_Editor.cs" />
@@ -124,6 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\Fonts\lohengrin\1001fonts-lohengrin-eula.txt" />
     <None Include="Assets\Kitten\Shaders\Alpha-Diffuse.shader" />
     <None Include="Assets\Kitten\Shaders\Normal-Diffuse.shader" />
     <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />

@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -125,6 +123,29 @@
     <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Twirl.cs" />
     <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\VignetteAndChromaticAberration.cs" />
     <Compile Include="Assets\NatureStarterKit2\Standard Assets\Effects\ImageEffects\Scripts\Vortex.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart1.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart2.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\DemoPart3.cs" />
+    <Compile Include="Assets\SoundManagerPro\Demo\DemoScripts\ScriptWithEvents.cs" />
+    <Compile Include="Assets\SoundManagerPro\EditorHelper\EditorUpdateCheck.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\AudioSourcePro.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\AudioSubscription.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\ProxyEventAttribute.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SFXGroup.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SFXPoolInfo.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SoundConnection.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Classes\SoundPocket.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Extensions\AudioSourceTools.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Extensions\SoundManagerTools.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\Singleton.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Editor.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Essentials.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Internal.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_SFX.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_SFX_Internal.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Variables_Music.cs" />
+    <Compile Include="Assets\SoundManagerPro\Scripts\Managers\SoundManager_Variables_SFX.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\DocuScript.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\TimeOfDay\ToD_Base.cs" />
     <Compile Include="Assets\TimeOfDay&amp;WeatherSystem\Code\TimeOfDay\ToD_Clock.cs" />
@@ -142,6 +163,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Fonts\Jupiter\LICENSE.txt" />
+    <None Include="Assets\Fonts\lohengrin\1001fonts-lohengrin-eula.txt" />
     <None Include="Assets\Kitten\Shaders\Alpha-Diffuse.shader" />
     <None Include="Assets\Kitten\Shaders\Normal-Diffuse.shader" />
     <None Include="Assets\NatureStarterKit2\Standard Assets\Effects\GlassRefraction\Shaders\GlassStainedBumpDistort.shader" />
