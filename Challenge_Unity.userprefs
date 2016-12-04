@@ -1,5 +1,6 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+<<<<<<< Updated upstream
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/Cannon.cs">
     <Files>
       <File FileName="Assets/Code/UIManagerScript.cs" Line="56" Column="67" />
@@ -11,6 +12,19 @@
       <File FileName="Assets/Code/Projectile.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/Initiate.cs" Line="1" Column="1" />
       <File FileName="Assets/Code/LevelChange.cs" Line="1" Column="1" />
+=======
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/PlayerController.cs">
+    <Files>
+      <File FileName="Assets/Code/PlayerController.cs" Line="419" Column="2" />
+      <File FileName="Assets/Code/Cannon.cs" Line="47" Column="1" />
+      <File FileName="Assets/Code/Spawn.cs" Line="20" Column="27" />
+      <File FileName="Assets/Code/DestroyProjectile.cs" Line="18" Column="2" />
+      <File FileName="Assets/Code/DestroyCats.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Initiate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/LevelChange.cs" Line="1" Column="2" />
+      <File FileName="Assets/Code/UIManagerScript.cs" Line="1" Column="1" />
+>>>>>>> Stashed changes
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
