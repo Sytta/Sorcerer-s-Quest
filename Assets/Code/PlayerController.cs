@@ -285,6 +285,7 @@ public class PlayerController : MonoBehaviour
         {
 			// Désactiver les multiples points
 			other.GetComponent<BoxCollider>().enabled = false;
+			other.GetComponentInChildren<Light> ().enabled = false;
 
 			// Joue le système de particules
 			other.GetComponentInChildren<ParticleSystem> ().Play ();
@@ -308,34 +309,6 @@ public class PlayerController : MonoBehaviour
 
 			texteScore.text = "Coins : " + score;
         }
-
-		if (other.gameObject.tag == "ExtraLife")
-		{
-			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
-			Destroy(other.gameObject);
-			if (vies < 3) { //3 vies max
-				vies++;
-				textePowerUp.GetComponent<Text> ().text = "1 UP!";
-			} else {
-				textePowerUp.GetComponent<Text> ().text = "MAX LIFE!";
-			}
-
-			texteVies.text = "Life : " + vies;
-            lifeSlider.SetValue((float)vies / 3);
-
-			textePowerUpActivated = true;
-		}
-
-		if (other.gameObject.tag == "Protection")
-		{
-			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
-			Destroy(other.gameObject);
-			protection += 3;
-			texteProtection.text = "Protection : " + protection;
-
-			textePowerUp.GetComponent<Text>().text = "Shield!";
-			textePowerUpActivated = true;
-		}
 
 		if (other.gameObject.tag == "Bullet" && !powerUpActivatedInvincible)
 		{
@@ -380,11 +353,35 @@ public class PlayerController : MonoBehaviour
 			texteScore.text = "Coins : " + score;
 		}
 
+		// Power-up : ExtraLife permet de gagner une vie supplémentaire
+		if (other.gameObject.tag == "ExtraLife")
+		{
+			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
+
+			// Cache le power-up
+			other.GetComponentInChildren<Light> ().enabled = false;
+			Destroy(other.gameObject);
+
+			if (vies < 3) { //3 vies max
+				vies++;
+				textePowerUp.GetComponent<Text> ().text = "1 Up!";
+			} else {
+				textePowerUp.GetComponent<Text> ().text = "Max Life!";
+			}
+
+			texteVies.text = "Life : " + vies;
+			lifeSlider.SetValue((float)vies / 3);
+
+			textePowerUpActivated = true;
+		}
+
 		// Power-up : StopCanon permet d'arrêter le tir des canons
 		if (other.gameObject.tag == "StopCanon") {
 			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
+
 			// Cache le power-up
-			other.GetComponent<MeshRenderer> ().enabled = false;
+			other.GetComponentInChildren<Light> ().enabled = false;
+			Destroy(other.gameObject);
 
 			// Arrête les canons
 			foreach (GameObject canon in canons) {
@@ -393,43 +390,35 @@ public class PlayerController : MonoBehaviour
 
 			powerUpActivatedStopCanon = true;
 
-			textePowerUp.GetComponent<Text>().text = "Freeze! Let it go ~";
+			textePowerUp.GetComponent<Text>().text = "Freeze! Let It Go ~";
 			textePowerUpActivated = true;
 		}
 
 		// Power-up : Invincible ignore les collision avec les chats
 		if (other.gameObject.tag == "Invincible") {
 			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
+
 			// Cache le power-up
-			other.GetComponent<MeshRenderer> ().enabled = false;
+			other.GetComponentInChildren<Light> ().enabled = false;
+			Destroy(other.gameObject);
 
 			powerUpActivatedInvincible = true;
 
-			textePowerUp.GetComponent<Text>().text = "God mode!";
+			textePowerUp.GetComponent<Text>().text = "God Mode!";
 			textePowerUpActivated = true;
 		}
 
 		// Power-up : Money double les points obtenus avec un Coin
 		if (other.gameObject.tag == "Money") {
 			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
+
 			// Cache le power-up
-			other.GetComponent<MeshRenderer> ().enabled = false;
+			other.GetComponentInChildren<Light> ().enabled = false;
+			Destroy(other.gameObject);
 
 			powerUpActivatedMoney = true;
 
-			textePowerUp.GetComponent<Text>().text = "Bling bling $$$";
-			textePowerUpActivated = true;
-		}
-
-		// Item shop : Boots fait aller le personnage plus rapidement
-		if (other.gameObject.tag == "Boots") {
-			AudioSource.PlayClipAtPoint (powerUp, other.transform.position);
-			// Cache le power-up
-			other.GetComponent<MeshRenderer> ().enabled = false;
-
-			itemShopActivatedBoots = true;
-
-			textePowerUp.GetComponent<Text>().text = "Run Forrest Run!";
+			textePowerUp.GetComponent<Text>().text = "Bling Bling $$$";
 			textePowerUpActivated = true;
 		}
     }
