@@ -25,34 +25,44 @@ public class PlayerController : MonoBehaviour
     public LifeSlider lifeSlider;
 
 	// Power-ups
-	public float powerUpTimeRemaining = 5.0f;
-	public Text  texteTimeRemaining;
 	public AudioClip powerUp;
 
 	// Texte power-up activé (blinking text)
 	public BlinkEffect textePowerUp;
 	public bool  textePowerUpActivated = false;
-	public float textePowerUpTimeRemaining = 2.0f;
+	public float textePowerUpActivatedTimeOnScreen = 2.0f;
 
-	public bool  powerUpActivatedStopCanon = false;
+	// Texte power-up time remaining
+	public float powerUpTimeRemaining = 5.0f;
+	public Image imageTimeLeft;
+	public Text  texteTime;
+	public Text  texteTimeLeft;
+
+	// Power up icons
 	public GameObject[] canons;
-
-    public Projectile gun;
+	public bool  powerUpActivatedStopCanon = false;
+	public Image stopCanonActivatedIcon;
+	public Image stopCanonDeactivatedIcon;
 
 	public bool  powerUpActivatedInvincible = false;
+	public Image invincibleActivatedIcon;
+	public Image invincibleDeactivatedIcon;
 
 	public bool  powerUpActivatedMoney = false;
+	public Image moneyActivatedIcon;
+	public Image moneyDeactivatedIcon;
 
 	// Item shop
-	public Text  texteItemShop; 
-	public bool  itemShopActivatedBoots = false;
     public ShopController shopController;
+	public Projectile gun;
+	public Text  gunQuantity;
+	public int   shieldQuantity;
+	public Text  texteShieldQuantity;
+	public Text  bootsQuantity;
+	public bool  itemShopActivatedBoots = false;
 
     //Message panel
     public MessagePanel messagePanel;
-
-    public int protection = 0;
-	public Text texteProtection;
 
 	// Animator
 	public Animator animator;
@@ -74,16 +84,18 @@ public class PlayerController : MonoBehaviour
         //Appliquer les power-ups que le joueur a achete
         if (GlobalControl.Instance.nbProtectionSelected > 0)
         {
-            protection += GlobalControl.Instance.nbProtectionSelected * 3;
-            texteProtection.text = "Protection : " + protection;
+			shieldQuantity += GlobalControl.Instance.nbProtectionSelected * 3;
+			texteShieldQuantity.text = "" + shieldQuantity;
         }
         if (GlobalControl.Instance.bootsSelected)
         {
             itemShopActivatedBoots = true;
+			bootsQuantity.text = "1";
         }
         if (GlobalControl.Instance.gunSelected)
         {
             gun.gunActivated = true;
+			gunQuantity.text = "1";
         }
 
         GlobalControl.Instance.Reset();
@@ -184,16 +196,24 @@ public class PlayerController : MonoBehaviour
 		// power ups are activated when player collide with power up object
 		if (powerUpActivatedStopCanon) {
 
-			texteTimeRemaining.enabled = true;
+			imageTimeLeft.enabled = true;
+			texteTime.enabled = true;
+			texteTimeLeft.enabled = true;
 
 			powerUpTimeRemaining -= Time.deltaTime;
-			texteTimeRemaining.text = "Freeze: " + Mathf.Round (powerUpTimeRemaining);
+			texteTimeLeft.text = "" + Mathf.Round (powerUpTimeRemaining);
 
 			// Retour à la normale
 			if (powerUpTimeRemaining < 0) {
 				powerUpActivatedStopCanon = false;
 				powerUpTimeRemaining = 5.0f;
-				texteTimeRemaining.enabled = false;
+
+				imageTimeLeft.enabled = false;
+				texteTime.enabled = false;
+				texteTimeLeft.enabled = false;
+
+				stopCanonActivatedIcon.enabled = false;
+				stopCanonDeactivatedIcon.enabled = true;
 
 				// Réactive les canons
 				foreach (GameObject canon in canons) {
@@ -205,60 +225,68 @@ public class PlayerController : MonoBehaviour
 
 		if (powerUpActivatedInvincible) {
 
-			texteTimeRemaining.enabled = true;
+			imageTimeLeft.enabled = true;
+			texteTime.enabled = true;
+			texteTimeLeft.enabled = true;
 
 			powerUpTimeRemaining -= Time.deltaTime;
-			texteTimeRemaining.text = "Invincible: " + Mathf.Round (powerUpTimeRemaining);
+			texteTimeLeft.text = "" + Mathf.Round (powerUpTimeRemaining);
 
 			// Retour à la normale
 			if (powerUpTimeRemaining < 0) {
 				powerUpActivatedInvincible = false;
 				powerUpTimeRemaining = 5.0f;
-				texteTimeRemaining.enabled = false;
+
+				imageTimeLeft.enabled = false;
+				texteTime.enabled = false;
+				texteTimeLeft.enabled = false;
+
+				invincibleActivatedIcon.enabled = false;
+				invincibleDeactivatedIcon.enabled = true;
 			}
 		}
 
 		if (powerUpActivatedMoney) {
 
-			texteTimeRemaining.enabled = true;
+			imageTimeLeft.enabled = true;
+			texteTime.enabled = true;
+			texteTimeLeft.enabled = true;
 
 			powerUpTimeRemaining -= Time.deltaTime;
-			texteTimeRemaining.text = "Money: " + Mathf.Round (powerUpTimeRemaining);
+			texteTimeLeft.text = "" + Mathf.Round (powerUpTimeRemaining);
 
 			// Retour à la normale
 			if (powerUpTimeRemaining < 0) {
 				powerUpActivatedMoney = false;
 				powerUpTimeRemaining = 5.0f;
-				texteTimeRemaining.enabled = false;
+
+				imageTimeLeft.enabled = false;
+				texteTime.enabled = false;
+				texteTimeLeft.enabled = false;
+
+				moneyActivatedIcon.enabled = false;
+				moneyDeactivatedIcon.enabled = true;
 			}
-		}
-
-		if (itemShopActivatedBoots) {
-
-			texteItemShop.enabled = true;
-
-			// TO-DO Could be an image of boots
-			texteItemShop.text = "Bottes activés";
 		}
 
 		// Quand on active un power-up, un texte blink sur l'écran pendant 2 secondes
 		if (textePowerUpActivated) {
 			
-			if (textePowerUpTimeRemaining == 2.0f) {
+			if (textePowerUpActivatedTimeOnScreen == 2.0f) {
 				textePowerUp.enabled = true;
 				textePowerUp.GetComponent<Text> ().enabled = true;
 				textePowerUp.GetComponent<Shadow> ().enabled = true;
 				textePowerUp.GetComponent<BlinkEffect> ().enabled = true;
 			}
 
-			textePowerUpTimeRemaining -= Time.deltaTime;
+			textePowerUpActivatedTimeOnScreen -= Time.deltaTime;
 
-			if (textePowerUpTimeRemaining < 0) {
+			if (textePowerUpActivatedTimeOnScreen < 0) {
 				textePowerUp.enabled = false;
 				textePowerUp.GetComponent<Text> ().enabled = false;
 				textePowerUp.GetComponent<Shadow> ().enabled = false;
 				textePowerUp.GetComponent<BlinkEffect> ().enabled = false;
-				textePowerUpTimeRemaining = 2.0f;
+				textePowerUpActivatedTimeOnScreen = 2.0f;
 				textePowerUpActivated = false;
 			}
 		}
@@ -272,7 +300,7 @@ public class PlayerController : MonoBehaviour
 
     private void ClearTexts() {
         textePowerUp.GetComponent<Text>().text = "";
-        texteTimeRemaining.text = "";
+		texteTimeLeft.text = "";
     }
 
     public void OnTriggerEnter(Collider other)
@@ -312,7 +340,7 @@ public class PlayerController : MonoBehaviour
 
 		if (other.gameObject.tag == "Bullet" && !powerUpActivatedInvincible)
 		{
-			if (protection == 0) {
+			if (shieldQuantity == 0) {
 				// Si le joueur est touché, on décrémente sa vie
 				vies--;
                 lifeSlider.SetValue((float)vies/3);
@@ -345,8 +373,8 @@ public class PlayerController : MonoBehaviour
 					Invoke ("CacherText", 3.0f);
 				}
 			} else {
-				protection--;
-				texteProtection.text = "Protection : " + protection;
+				shieldQuantity--;
+				texteShieldQuantity.text = "" + shieldQuantity;
 			}
 
 			texteVies.text = "Life : " + vies;
@@ -389,6 +417,8 @@ public class PlayerController : MonoBehaviour
 			}
 
 			powerUpActivatedStopCanon = true;
+			stopCanonActivatedIcon.enabled = true;
+			stopCanonDeactivatedIcon.enabled = false;
 
 			textePowerUp.GetComponent<Text>().text = "Freeze! Let It Go ~";
 			textePowerUpActivated = true;
@@ -403,6 +433,8 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 
 			powerUpActivatedInvincible = true;
+			invincibleActivatedIcon.enabled = true;
+			invincibleDeactivatedIcon.enabled = false;
 
 			textePowerUp.GetComponent<Text>().text = "God Mode!";
 			textePowerUpActivated = true;
@@ -417,6 +449,8 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 
 			powerUpActivatedMoney = true;
+			moneyActivatedIcon.enabled = true;
+			moneyDeactivatedIcon.enabled = false;
 
 			textePowerUp.GetComponent<Text>().text = "Bling Bling $$$";
 			textePowerUpActivated = true;
