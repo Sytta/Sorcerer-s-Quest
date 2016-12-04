@@ -320,7 +320,7 @@ public class PlayerController : MonoBehaviour
 				textePowerUp.GetComponent<Text> ().text = "MAX LIFE!";
 			}
 
-			texteVies.text = "Vies : " + vies;
+			texteVies.text = "Life : " + vies;
             lifeSlider.SetValue((float)vies / 3);
 
 			textePowerUpActivated = true;
@@ -376,7 +376,7 @@ public class PlayerController : MonoBehaviour
 				texteProtection.text = "Protection : " + protection;
 			}
 
-			texteVies.text = "Vies : " + vies;
+			texteVies.text = "Life : " + vies;
 			texteScore.text = "Coins : " + score;
 		}
 
