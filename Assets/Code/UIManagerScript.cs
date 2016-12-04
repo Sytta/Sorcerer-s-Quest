@@ -8,52 +8,27 @@ public class UIManagerScript : MonoBehaviour {
 	public AudioClip buttonPress;
 
 	public void StartGame() {
-		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
-		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("start_btn").transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, new Vector3(0.0f,0.0f,0.0f));
 		Application.LoadLevel("Scene");
 	}
 
 	public void QuitGame() {
-		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
-		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("exit_btn").transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, new Vector3(0.0f,0.0f,0.0f));
 		Application.Quit();
 	}
 
-	public void enableDisableVolumeSlider() {
-		AudioSource.PlayClipAtPoint (buttonPress, transform.position);
-		if (volumeEnabled == false) {
-			GameObject.Find ("Volume Slider").GetComponent <Slider> ().enabled = true;
-			GameObject.Find ("Volume Slider").SetActive (true);
-			//GameObject.Find ("Volume Slider").GetComponent<Slider> ().
-			volumeEnabled = true;
-		} 
-		else {
-			GameObject.Find ("Volume Slider").GetComponent <Slider> ().enabled = false;
-			GameObject.Find ("Volume Slider").SetActive(false);
-			//GameObject.Find ("Volume Slider").GetComponent <Slider> ().Rebuild();
-			volumeEnabled = false;
-		}
-	}
-
-	public void ChangeVolume() {
-		AudioListener.volume = GameObject.Find ("Volume Slider").GetComponent <Slider> ().value;;
-	}
-
 	public void loadCredits() {
-		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
-		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("credits_btn").transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, new Vector3(0.0f,0.0f,0.0f));
 		Application.LoadLevel ("Credits");
 	}
 
 	public void loadMenu() {
-		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
-		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("back_btn").transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, new Vector3(0.0f,0.0f,0.0f));
 		Application.LoadLevel ("Menu");
 	}
 
 	public void loadHelp() {
-		//AudioSource.PlayClipAtPoint (buttonPress, transform.position);
-		AudioSource.PlayClipAtPoint (buttonPress, GameObject.Find ("help_btn").transform.position);
+		AudioSource.PlayClipAtPoint (buttonPress, new Vector3(0.0f,0.0f,0.0f));
 		Application.LoadLevel ("Help");
 	}
 }
