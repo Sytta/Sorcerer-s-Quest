@@ -32,25 +32,20 @@ public class PlayerController : MonoBehaviour
 	public bool  textePowerUpActivated = false;
 	public float textePowerUpActivatedTimeOnScreen = 2.0f;
 
-	// Texte power-up time remaining
-	public float powerUpTimeRemaining = 5.0f;
-	public Image imageTimeLeft;
-	public Text  texteTime;
-	public Text  texteTimeLeft;
-
 	// Power up icons
 	public GameObject[] canons;
+
 	public bool  powerUpActivatedStopCanon = false;
 	public Image stopCanonActivatedIcon;
-	public Image stopCanonDeactivatedIcon;
+	public float stopCanonTimeRemaining = 5.0f;
 
 	public bool  powerUpActivatedInvincible = false;
 	public Image invincibleActivatedIcon;
-	public Image invincibleDeactivatedIcon;
+	public float invincibleTimeRemaining = 5.0f;
 
 	public bool  powerUpActivatedMoney = false;
 	public Image moneyActivatedIcon;
-	public Image moneyDeactivatedIcon;
+	public float moneyTimeRemaining = 5.0f;
 
 	// Item shop
     public ShopController shopController;
@@ -74,6 +69,11 @@ public class PlayerController : MonoBehaviour
 		canons = GameObject.FindGameObjectsWithTag ("Wall");
         //Gun
         gun = FindObjectOfType<Projectile>();
+
+		// Reset icons
+		moneyActivatedIcon.GetComponent<Image> ().fillAmount = 0.0f;
+		stopCanonActivatedIcon.GetComponent<Image> ().fillAmount = 0.0f;
+		invincibleActivatedIcon.GetComponent<Image> ().fillAmount = 0.0f;
 
         //Cacher le magasins de Power-ups et le panel de message
         shopController.CloseShop();
@@ -202,24 +202,15 @@ public class PlayerController : MonoBehaviour
 		// power ups are activated when player collide with power up object
 		if (powerUpActivatedStopCanon) {
 
-			imageTimeLeft.enabled = true;
-			texteTime.enabled = true;
-			texteTimeLeft.enabled = true;
-
-			powerUpTimeRemaining -= Time.deltaTime;
-			texteTimeLeft.text = "" + Mathf.Round (powerUpTimeRemaining);
+			stopCanonTimeRemaining -= Time.deltaTime;
+			stopCanonActivatedIcon.GetComponent<Image> ().fillAmount = stopCanonTimeRemaining / 5.0f;
 
 			// Retour à la normale
-			if (powerUpTimeRemaining < 0) {
+			if (stopCanonTimeRemaining < 0) {
 				powerUpActivatedStopCanon = false;
-				powerUpTimeRemaining = 5.0f;
 
-				imageTimeLeft.enabled = false;
-				texteTime.enabled = false;
-				texteTimeLeft.enabled = false;
-
-				stopCanonActivatedIcon.enabled = false;
-				stopCanonDeactivatedIcon.enabled = true;
+				stopCanonTimeRemaining = 5.0f;
+				stopCanonActivatedIcon.GetComponent<Image>().fillAmount = 0.0f;
 
 				// Réactive les canons
 				foreach (GameObject canon in canons) {
@@ -231,47 +222,29 @@ public class PlayerController : MonoBehaviour
 
 		if (powerUpActivatedInvincible) {
 
-			imageTimeLeft.enabled = true;
-			texteTime.enabled = true;
-			texteTimeLeft.enabled = true;
-
-			powerUpTimeRemaining -= Time.deltaTime;
-			texteTimeLeft.text = "" + Mathf.Round (powerUpTimeRemaining);
+			invincibleTimeRemaining -= Time.deltaTime;
+			invincibleActivatedIcon.GetComponent<Image> ().fillAmount = invincibleTimeRemaining / 5.0f;
 
 			// Retour à la normale
-			if (powerUpTimeRemaining < 0) {
+			if (invincibleTimeRemaining < 0) {
 				powerUpActivatedInvincible = false;
-				powerUpTimeRemaining = 5.0f;
 
-				imageTimeLeft.enabled = false;
-				texteTime.enabled = false;
-				texteTimeLeft.enabled = false;
-
-				invincibleActivatedIcon.enabled = false;
-				invincibleDeactivatedIcon.enabled = true;
+				invincibleTimeRemaining = 5.0f;
+				invincibleActivatedIcon.GetComponent<Image>().fillAmount = 0.0f;
 			}
 		}
 
 		if (powerUpActivatedMoney) {
 
-			imageTimeLeft.enabled = true;
-			texteTime.enabled = true;
-			texteTimeLeft.enabled = true;
-
-			powerUpTimeRemaining -= Time.deltaTime;
-			texteTimeLeft.text = "" + Mathf.Round (powerUpTimeRemaining);
+			moneyTimeRemaining -= Time.deltaTime;
+			moneyActivatedIcon.GetComponent<Image> ().fillAmount = moneyTimeRemaining / 5.0f;
 
 			// Retour à la normale
-			if (powerUpTimeRemaining < 0) {
+			if (moneyTimeRemaining < 0) {
 				powerUpActivatedMoney = false;
-				powerUpTimeRemaining = 5.0f;
 
-				imageTimeLeft.enabled = false;
-				texteTime.enabled = false;
-				texteTimeLeft.enabled = false;
-
-				moneyActivatedIcon.enabled = false;
-				moneyDeactivatedIcon.enabled = true;
+				moneyTimeRemaining = 5.0f;
+				moneyActivatedIcon.GetComponent<Image>().fillAmount = 0.0f;
 			}
 		}
 
@@ -306,7 +279,6 @@ public class PlayerController : MonoBehaviour
 
     private void ClearTexts() {
         textePowerUp.GetComponent<Text>().text = "";
-		texteTimeLeft.text = "";
     }
 
     public void OnTriggerEnter(Collider other)
@@ -423,8 +395,10 @@ public class PlayerController : MonoBehaviour
 			}
 
 			powerUpActivatedStopCanon = true;
-			stopCanonActivatedIcon.enabled = true;
-			stopCanonDeactivatedIcon.enabled = false;
+
+			// Cooldown
+			stopCanonTimeRemaining = 5.0f;
+			stopCanonActivatedIcon.GetComponent<Image>().fillAmount = 1.0f;
 
 			textePowerUp.GetComponent<Text>().text = "Freeze! Let It Go ~";
 			textePowerUpActivated = true;
@@ -439,8 +413,10 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 
 			powerUpActivatedInvincible = true;
-			invincibleActivatedIcon.enabled = true;
-			invincibleDeactivatedIcon.enabled = false;
+
+			// Cooldown
+			invincibleTimeRemaining = 5.0f;
+			invincibleActivatedIcon.GetComponent<Image>().fillAmount = 1.0f;
 
 			textePowerUp.GetComponent<Text>().text = "God Mode!";
 			textePowerUpActivated = true;
@@ -455,8 +431,10 @@ public class PlayerController : MonoBehaviour
 			Destroy(other.gameObject);
 
 			powerUpActivatedMoney = true;
-			moneyActivatedIcon.enabled = true;
-			moneyDeactivatedIcon.enabled = false;
+
+			// Cooldown
+			moneyTimeRemaining = 5.0f;
+			moneyActivatedIcon.GetComponent<Image>().fillAmount = 1.0f;
 
 			textePowerUp.GetComponent<Text>().text = "Bling Bling $$$";
 			textePowerUpActivated = true;
