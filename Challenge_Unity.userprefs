@@ -1,10 +1,18 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/Spawn.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Code/DestroyCats.cs">
     <Files>
-      <File FileName="Assets/Code/Spawn.cs" Line="83" Column="86" />
+      <File FileName="Assets/Code/UIManagerScript.cs" Line="36" Column="3" />
       <File FileName="Assets/Code/PlayerController.cs" Line="1" Column="1" />
-      <File FileName="Assets/Code/Cannon.cs" Line="19" Column="8" />
+      <File FileName="Assets/Code/Cannon.cs" Line="41" Column="112" />
+      <File FileName="Assets/Code/Spawn.cs" Line="75" Column="29" />
+      <File FileName="Assets/Code/DestroyProjectile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/DestroyCats.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Projectile.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/Initiate.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/LevelChange.cs" Line="1" Column="1" />
+      <File FileName="Assets/Code/UIManagerScriptHelp.cs" Line="47" Column="69" />
+      <File FileName="Assets/Code/ItemButton.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

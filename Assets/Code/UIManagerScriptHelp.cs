@@ -11,6 +11,8 @@ public class UIManagerScriptHelp : MonoBehaviour {
 		GameObject.Find ("TextPowerUps").GetComponent<Text> ().enabled = false;
 		GameObject.Find ("TextPowerUps2").GetComponent<Text> ().enabled = false;
 		GameObject.Find ("previous_btn").GetComponent<Button> ().enabled = false;
+		GameObject.Find ("previous_btn").GetComponent<Button> ().GetComponent<Image>().enabled = false;
+		GameObject.Find ("previous_btn").GetComponent<Button> ().GetComponentInChildren<Text>().enabled = false;
 		GameObject.Find ("money_img").GetComponent<Image> ().enabled = false;
 		GameObject.Find ("invincibility_img").GetComponent<Image> ().enabled = false;
 		GameObject.Find ("stop_img").GetComponent<Image> ().enabled = false;
@@ -26,6 +28,8 @@ public class UIManagerScriptHelp : MonoBehaviour {
 		GameObject.Find ("TextStory").GetComponent<Text> ().enabled = false;
 		GameObject.Find ("TextControls").GetComponent<Text> ().enabled = false;
 		GameObject.Find ("next_btn").GetComponent<Button> ().enabled = false;
+		GameObject.Find ("next_btn").GetComponent<Button> ().GetComponent<Image>().enabled = false;
+		GameObject.Find ("next_btn").GetComponent<Button> ().GetComponentInChildren<Text>().enabled = false;
 		GameObject.Find ("arrow_left").GetComponent<Image> ().enabled = false;
 		GameObject.Find ("arrow_right").GetComponent<Image> ().enabled = false;
 		GameObject.Find ("arrow_up").GetComponent<Image> ().enabled = false;
@@ -37,6 +41,8 @@ public class UIManagerScriptHelp : MonoBehaviour {
 		GameObject.Find ("TextPowerUps").GetComponent<Text> ().enabled = true;
 		GameObject.Find ("TextPowerUps2").GetComponent<Text> ().enabled = true;
 		GameObject.Find ("previous_btn").GetComponent<Button> ().enabled = true;
+		GameObject.Find ("previous_btn").GetComponent<Button> ().GetComponent<Image>().enabled = true;
+		GameObject.Find ("previous_btn").GetComponent<Button> ().GetComponentInChildren<Text>().enabled = true;
 		GameObject.Find ("money_img").GetComponent<Image> ().enabled = true;
 		GameObject.Find ("invincibility_img").GetComponent<Image> ().enabled = true;
 		GameObject.Find ("stop_img").GetComponent<Image> ().enabled = true;
@@ -47,6 +53,8 @@ public class UIManagerScriptHelp : MonoBehaviour {
 		GameObject.Find ("TextStory").GetComponent<Text> ().enabled = true;
 		GameObject.Find ("TextControls").GetComponent<Text> ().enabled = true;
 		GameObject.Find ("next_btn").GetComponent<Button> ().enabled = true;
+		GameObject.Find ("next_btn").GetComponent<Button> ().GetComponent<Image>().enabled = true;
+		GameObject.Find ("next_btn").GetComponent<Button> ().GetComponentInChildren<Text>().enabled = true;
 		GameObject.Find ("arrow_left").GetComponent<Image> ().enabled = true;
 		GameObject.Find ("arrow_right").GetComponent<Image> ().enabled = true;
 		GameObject.Find ("arrow_up").GetComponent<Image> ().enabled = true;
@@ -58,6 +66,8 @@ public class UIManagerScriptHelp : MonoBehaviour {
 		GameObject.Find ("TextPowerUps").GetComponent<Text> ().enabled = false;
 		GameObject.Find ("TextPowerUps2").GetComponent<Text> ().enabled = false;
 		GameObject.Find ("previous_btn").GetComponent<Button> ().enabled = false;
+		GameObject.Find ("previous_btn").GetComponent<Button> ().GetComponent<Image>().enabled = false;
+		GameObject.Find ("previous_btn").GetComponent<Button> ().GetComponentInChildren<Text>().enabled = false;
 		GameObject.Find ("money_img").GetComponent<Image> ().enabled = false;
 		GameObject.Find ("invincibility_img").GetComponent<Image> ().enabled = false;
 		GameObject.Find ("stop_img").GetComponent<Image> ().enabled = false;
