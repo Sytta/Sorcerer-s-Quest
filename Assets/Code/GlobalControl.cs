@@ -6,7 +6,7 @@ public class GlobalControl : MonoBehaviour
     public static GlobalControl Instance;
 
     public bool bootsSelected = false;
-    public int nbProtectionSelected = 0;
+    public int nbProtection;
     public bool gunSelected = false;
 
     void Awake()
@@ -25,7 +25,6 @@ public class GlobalControl : MonoBehaviour
     public void Reset()
     {
         bootsSelected = false;
-        nbProtectionSelected = 0;
         gunSelected = false;
     }
 }

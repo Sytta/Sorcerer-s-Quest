@@ -37,8 +37,8 @@ public class ItemButton : MonoBehaviour
             }
             else if (name == "Buy Shield Button")
             {
-                GlobalControl.Instance.nbProtectionSelected++;
                 player.shieldQuantity = player.shieldQuantity + 3;
+                GlobalControl.Instance.nbProtection = player.shieldQuantity;
                 player.texteShieldQuantity.text = "" + player.shieldQuantity;
             }
 

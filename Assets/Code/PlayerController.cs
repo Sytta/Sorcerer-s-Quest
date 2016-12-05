@@ -82,9 +82,9 @@ public class PlayerController : MonoBehaviour
         messagePanel.openPanel = true;
 
         //Appliquer les power-ups que le joueur a achete
-        if (GlobalControl.Instance.nbProtectionSelected > 0)
+        if (GlobalControl.Instance.nbProtection > 0 && SceneManager.GetActiveScene().name != "Scene")
         {
-			shieldQuantity += GlobalControl.Instance.nbProtectionSelected * 3;
+			shieldQuantity = GlobalControl.Instance.nbProtection;
 			texteShieldQuantity.text = "" + shieldQuantity;
         }
         if (GlobalControl.Instance.bootsSelected)
@@ -135,6 +135,10 @@ public class PlayerController : MonoBehaviour
         {
             //Cacher les textes pour les powerups
             ClearTexts();
+
+            //Mettre les power-ups (sauf Shield) à 0
+            bootsQuantity.text = "0";
+            gunQuantity.text = "0";
 
             if (messagePanel.openPanel)
                 messagePanel.Open();
