@@ -187,8 +187,10 @@ public class PlayerController : MonoBehaviour
 		// La physique effectue son travail pour bouger l'objet.
 		// y est l'axe pointant vers le haut
 		if (itemShopActivatedBoots) {
+			gameObject.GetComponent<Rigidbody> ().drag = 1.45f;
 			gameObject.GetComponent<Rigidbody> ().AddForce (new Vector3 (entreHorizontal * 30f, 0f, entreVertical * 30f));
 		} else {
+			gameObject.GetComponent<Rigidbody> ().drag = 0.75f;
 			gameObject.GetComponent<Rigidbody> ().AddForce (new Vector3 (entreHorizontal * 20f, 0f, entreVertical * 20f));
 		}
 

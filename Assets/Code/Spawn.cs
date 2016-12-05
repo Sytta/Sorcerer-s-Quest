@@ -80,9 +80,10 @@ public class Spawn : MonoBehaviour {
 			// La hauteur va être fixe (y), même plan que le joueur
 			// Pour x et z, c'est une valeur aléatoire entre les valeurs min et max
 			Vector3 position = new Vector3 (Random.Range(min.x, max.x), gameObject.transform.position.y, Random.Range(min.z, max.z));
+			Quaternion rotation = new Quaternion (0, 90, 90, gameObject.transform.rotation.w);
 
 			// Instantiation du power-up aléatoire
-			GameObject result = (GameObject)Instantiate(powerUps[Random.Range(0,4)], position, gameObject.transform.rotation);
+			GameObject result = (GameObject)Instantiate(powerUps[Random.Range(0,4)], position, rotation);
 
 			// Pour détruire le power-up après un certain temps
 			Destroy(result, delaiSpawn_power);
