@@ -28,15 +28,21 @@ public class ItemButton : MonoBehaviour
             if (name == "Buy Boots Button")
             {
                 GlobalControl.Instance.bootsSelected = true;
+                player.bootsQuantity.text = "1";
             }
             else if (name == "Buy Gun Button")
             {
                 GlobalControl.Instance.gunSelected = true;
+                player.gunQuantity.text = "1";
             }
             else if (name == "Buy Shield Button")
             {
                 GlobalControl.Instance.nbProtectionSelected++;
+                player.shieldQuantity = player.shieldQuantity + 3;
+                player.texteShieldQuantity.text = "" + player.shieldQuantity;
             }
+
+            GameObject.Find(name).GetComponent<Button>().interactable = false;
         }
     }
 	
@@ -46,10 +52,6 @@ public class ItemButton : MonoBehaviour
         if (player.score < cost)
         {
             GameObject.Find(name).GetComponent<Button>().interactable = false;
-        }
-        else
-        {
-            GameObject.Find(name).GetComponent<Button>().interactable = true;
         }
 
     }
